@@ -1,9 +1,4 @@
-__author__ = 'spike'
-
-import mysql.connector
-import settings
-
-from models import Article, Topic
+from .models import Article, Topic
 
 
 def populate():

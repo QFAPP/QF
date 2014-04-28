@@ -1,5 +1,7 @@
 import peewee
-from settings import db
+
+from .settings import db
+
 
 class BizQuizModel(peewee.Model):
     class Meta:

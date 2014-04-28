@@ -6,7 +6,7 @@ import os
 import os.path
 import requests
 
-from models import Article, Topic
+from .models import Article, Topic
 
 class Pydesk(object):
     """
