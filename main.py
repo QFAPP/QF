@@ -1,10 +1,8 @@
 import argparse
 import json
 
-from pydesk import Pydesk
-from models import Topic
+from kbextractor.pydesk import Pydesk
 
-__author__ = 'spike'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Export you knowledge base.")

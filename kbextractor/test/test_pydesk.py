@@ -1,11 +1,7 @@
-import pydesk
-
-__author__ = 'spike'
-
 import unittest
 import json
 
-from pydesk import Pydesk
+from kbextractor.pydesk import Pydesk
 
 
 class TestPyDesk(unittest.TestCase):
