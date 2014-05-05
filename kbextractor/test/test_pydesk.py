@@ -1,7 +1,7 @@
 import unittest
 import json
 
-from kbextractor.pydesk import Pydesk
+from kbextractor.plugins.sources.pydesk import PyDesk
 
 
 class TestPyDesk(unittest.TestCase):
@@ -9,11 +9,13 @@ class TestPyDesk(unittest.TestCase):
     user_next = json.loads('{ "total_entries": 110, "_links": { "self": { "href": "/api/v2/users?page=2&per_page=2", "class": "page" }, "first": { "href": "/api/v2/users?page=1&per_page=2", "class": "page" }, "last": { "href": "/api/v2/users?page=55&per_page=2", "class": "page" }, "next": { "href": "/api/v2/users?page=3&per_page=2", "class": "page" }, "previous": { "href": "/api/v2/users?page=55&per_page=2", "class": "page" } }, "_embedded": { "entries": [ { "id": 1, "name": "John Doe", "public_name": "John Doe", "email": "john@acme.com", "level": "agent", "created_at": "2013-03-13T19:56:56Z", "updated_at": "2014-03-06T20:56:56Z", "current_login_at": "2014-03-12T19:56:56Z", "last_login_at": "2014-03-06T20:56:56Z", "_links": { "self": { "href": "/api/v2/users/1", "class": "user" }, "preferences": { "href": "/api/v2/users/1/preferences", "class": "user_preference" }, "macros": { "href": "/api/v2/users/1/macros", "class": "macro" }, "filters": { "href": "/api/v2/users/1/filters", "class": "filter" }, "integration_urls": { "href": "/api/v2/users/1/filters", "class": "integration_url" }, "groups": { "href": "/api/v2/users/1/groups", "class": "group" }, "searches": { "href": "/api/v2/users/1/searches", "class": "search" } } }, { "id": 1, "name": "John Doe", "public_name": "John Doe", "email": "john@acme.com", "level": "agent", "created_at": "2013-03-13T19:56:56Z", "updated_at": "2014-03-06T20:56:56Z", "current_login_at": "2014-03-12T19:56:56Z", "last_login_at": "2014-03-06T20:56:56Z", "_links": { "self": { "href": "/api/v2/users/1", "class": "user" }, "preferences": { "href": "/api/v2/users/1/preferences", "class": "user_preference" }, "macros": { "href": "/api/v2/users/1/macros", "class": "macro" }, "filters": { "href": "/api/v2/users/1/filters", "class": "filter" }, "integration_urls": { "href": "/api/v2/users/1/filters", "class": "integration_url" }, "groups": { "href": "/api/v2/users/1/groups", "class": "group" }, "searches": { "href": "/api/v2/users/1/searches", "class": "search" } } } ] } }')
 
     def test_no_next_page(self):
-        next_page_url = Pydesk.next_page_url(self.topics_no_next["_links"])
+        pydesk = PyDesk()
+        next_page_url = pydesk.next_page(self.topics_no_next["_links"])
         self.assertIsNone(next_page_url)
 
     def test_next_page(self):
-        next_page_url = Pydesk.next_page_url(self.user_next["_links"])
+        pydesk = PyDesk()
+        next_page_url = pydesk.next_page(self.user_next["_links"])
         self.assertIsNotNone (next_page_url)
 
 if __name__ == '__main__':

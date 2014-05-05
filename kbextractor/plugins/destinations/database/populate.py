@@ -1,9 +1,8 @@
-from .models import Article, Topic
-
+from models import Article, Topic
 
 def populate():
     """
-    Creates the table required by the knowledge base extractor.
+    Creates the tables required by the knowledge base extractor.
     """
     Topic.create_table()
     Article.create_table()
