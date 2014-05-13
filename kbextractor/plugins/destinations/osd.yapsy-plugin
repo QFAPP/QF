@@ -1,0 +1,9 @@
+[Core]
+Name = OSD
+Module = osd
+
+[Documentation]
+Author = Rémy Greinhofer
+Version = 0.1
+Website = http://www.quizforward.com
+Description = This plugin will display the content on the screen.

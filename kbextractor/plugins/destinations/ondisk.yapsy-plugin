@@ -1,0 +1,9 @@
+[Core]
+Name = OnDisk
+Module = ondisk
+
+[Documentation]
+Author = Rémy Greinhofer
+Version = 0.1
+Website = http://www.quizforward.com
+Description = This plugin will write the content on disk.
