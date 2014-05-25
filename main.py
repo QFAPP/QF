@@ -14,11 +14,17 @@ if __name__ == "__main__":
     parser.add_argument("--list", action="store_true",
                         help="list available plugins")
 
+    # Parse the arguments
     args = parser.parse_args()
+
+    # Prepare the plugin manager
     kbManager = KbExtractorPluginManager()
 
-    if list:
-        kbManager.load_plugins()
+    # Load the plugins
+    kbManager.load_plugins()
+
+    # Display the available plugins if requested
+    if args.list:
         kbManager.show_all()
         exit()
 
