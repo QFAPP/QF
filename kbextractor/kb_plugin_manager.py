@@ -42,6 +42,27 @@ class KbExtractorPluginManager(object):
         """
         Displays the name and the description of each plugin.
         """
-        # Loop round the plugins and print their names.
+
+        # Sort the plugins by category
+        plugins = {}
+
+        # Go through all the plugins
         for plugin in self.manager.getAllPlugins():
-            print("{0}: {1}".format(plugin.name, plugin.description))
+            # Retrieve the plugin category
+            category = plugins.get(plugin.category)
+
+            # Create the category in the dictionary if it does not exist
+            if not category:
+                plugins[plugin.category] = []
+
+            # Add the plugin to the right category
+            plugins[plugin.category].append(plugin)
+
+        # Go through all the categories
+        for category in plugins:
+            # Print the name of the category
+            print("[{0}]".format(category))
+
+            # Print the plugin information
+            for plugin_info in plugins[category]:
+                print("   {0}: {1}".format(plugin_info.name, plugin_info.description))
