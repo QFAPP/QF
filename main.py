@@ -11,7 +11,7 @@ if __name__ == "__main__":
                         help="Your username")
     parser.add_argument("--password", dest="password", action="store",
                         help="Your password")
-    parser.add_argument("--list", dest="list", action="store",
+    parser.add_argument("--list", action="store_true",
                         help="list available plugins")
 
     args = parser.parse_args()
@@ -20,6 +20,7 @@ if __name__ == "__main__":
     if list:
         kbManager.load_plugins()
         kbManager.show_all()
+        exit()
 
     # Set the source plugin
     sourcePluginInfo = kbManager.manager.getPluginByName("PyDesk", "Source")
