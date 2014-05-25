@@ -1,6 +1,7 @@
 import requests
 
 from kbextractor.plugin import ISourcePlugin
+from kbextractor.kbmodels import Article, Topic
 
 
 class PyDesk(ISourcePlugin):
@@ -59,10 +60,6 @@ class PyDesk(ISourcePlugin):
         if not topic_entry:
             return
 
-        # Skip entries that are not in the support center
-        if not topic_entry.get("in_support_center"):
-            return
-
         # The name of the topic will be the name of the folder to create
         topic_name = topic_entry.get("name")
 
@@ -114,4 +111,43 @@ class PyDesk(ISourcePlugin):
 
         # Return a tuple containing the list of items and the metadata
         embedded_items = items_data.get("_embedded", {})
-        return embedded_items.get("entries"), items_data.get("_links")
+        item_entries = embedded_items.get("entries", {})
+        return item_entries, items_data.get("_links", {})
+
+    def convert_to_kbmodel(self, item_type, item_entries):
+        """
+        Converts the Desk.com items to KbExtractor items.
+        """
+        # Prepare the result list containing the converted entries
+        converted_item_list = []
+
+        # We need an item type to be able to convert the items
+        if not item_type:
+            return converted_item_list
+
+        # We need to have items to convert to perform some work
+        if not item_entries:
+            return converted_item_list
+
+        # Go through all the entries and convert them to the appropriate type
+        if item_type == "topics":
+            for topic_entry in item_entries:
+                # Skip entries that are not in the support center
+                if not topic_entry.get("in_support_center"):
+                    return
+
+                # Add the topic to the result list
+                topic = Topic()
+                topic.name = topic_entry.get("name", "")
+                converted_item_list.append(topic)
+
+        if item_type == "articles":
+            for article_entry in item_entries:
+                article = Article()
+                article.topic = ""
+                article.subject = article_entry.get("subject", "")
+                article.subject = article_entry.get("body", "")
+                converted_item_list.append(article)
+
+        # Return the result. It will be an emtpy list if the item type is invalid.
+        return converted_item_list

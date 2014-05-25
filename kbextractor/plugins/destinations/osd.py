@@ -32,6 +32,6 @@ class OnDiskPlugin(IDestinationPlugin):
             print ("[{0}]".format(self.current_topic))
 
         # Display the subject of the articles
-        for article_entry in article_entry_list:
-            article_entry_name = article_entry.get("subject", "")
-            print ("   {0}".format(article_entry_name))
+        [print("   {0}".format(article_entry.subject)) for article_entry in article_entry_list]
+        #for article_entry in article_entry_list:
+            #print ("   {0}".format(article_entry.subject))
