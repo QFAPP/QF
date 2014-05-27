@@ -26,7 +26,7 @@ class OnDiskPlugin(IDestinationPlugin):
 
         # Go through all the articles in this topic
         for article_entry in article_entry_list:
-            article_name = article_entry.get("subject")
+            article_name = article_entry.subject
 
             # If there is no subject, it means the article is corrupted
             # therefore we skip it
@@ -37,4 +37,4 @@ class OnDiskPlugin(IDestinationPlugin):
             # Overwrite existing files
             file_name = topic_name + '/' + article_name
             with open(file_name, mode='w', encoding='utf-8') as article_file:
-                article_file.write(article_entry.get("body", ""))
+                article_file.write(article_entry.body)

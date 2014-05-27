@@ -33,7 +33,7 @@ if __name__ == "__main__":
     sourcePlugin = sourcePluginInfo.plugin_object
 
     # Set the destination plugin
-    destinationPluginInfo = kbManager.manager.getPluginByName("OSD", "Destination")
+    destinationPluginInfo = kbManager.manager.getPluginByName("OnDisk", "Destination")
     destinationPlugin = destinationPluginInfo.plugin_object
 
     # Authenticate
