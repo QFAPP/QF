@@ -21,7 +21,7 @@ class ISourcePlugin(IPlugin):
 
 class IDestinationPlugin(IPlugin):
     """
-    Represents the interface for the destination plugins
+    Represents the interface for the destination plugins.
     """
 
     def store(self, topic_name, article_entry_list):

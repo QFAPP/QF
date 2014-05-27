@@ -1,6 +1,7 @@
 import requests
 
 from kbextractor.plugin import ISourcePlugin
+from kbextractor.kbmodels import Article, Topic
 
 
 class PyDesk(ISourcePlugin):
@@ -13,6 +14,7 @@ class PyDesk(ISourcePlugin):
         self.user = ""
         self.password = ""
         self.base_url = ""
+        self.topic = ""
 
     def authenticate(self, subdomain, username, password):
         """
@@ -43,6 +45,9 @@ class PyDesk(ISourcePlugin):
         return next_page.get("href")
 
     def retrieve_topics(self, topic_page):
+        """
+        Retrieves the topics.
+        """
         if not topic_page:
             item_to_retrieve = "topics"
         else:
@@ -59,20 +64,17 @@ class PyDesk(ISourcePlugin):
         if not topic_entry:
             return
 
-        # Skip entries that are not in the support center
-        if not topic_entry.get("in_support_center"):
-            return
-
         # The name of the topic will be the name of the folder to create
-        topic_name = topic_entry.get("name")
+        topic_name = topic_entry.name
 
         # The name of the topic is mandatory
         if not topic_name:
             print('Corrupted entry. The name is missing.')
             return
+        self.topic = topic_name
 
         # Retrieve the link pointing to to all articles in this topic
-        href = topic_entry.get("_links", {}).get("articles", {}).get("href")
+        href = topic_entry.meta.get("articles", {}).get("href")
 
         # Leave if there is no link pointing to the articles
         if not href:
@@ -114,4 +116,53 @@ class PyDesk(ISourcePlugin):
 
         # Return a tuple containing the list of items and the metadata
         embedded_items = items_data.get("_embedded", {})
-        return embedded_items.get("entries"), items_data.get("_links")
+        item_entries = embedded_items.get("entries", {})
+        converted_item_entries = self.convert_to_kbmodel(item, item_entries)
+        return converted_item_entries, items_data.get("_links", {})
+
+    def convert_to_kbmodel(self, item_type, item_entries):
+        """
+        Converts the Desk.com items to KbExtractor items.
+
+        :param item_type: The type of the item to convert.
+        :param item_entries: All the entries to convert.
+        """
+        # Prepare the result list containing the converted entries
+        converted_item_list = []
+
+        # We need to have items to convert to perform some work
+        if not item_entries:
+            return converted_item_list
+
+        # We need an item type to be able to convert the items
+        if not item_type:
+            return converted_item_list
+
+        # If the item type contains a "/" (i.e.: /api/v2/topics/633385/articles)
+        # it means we have to retrieve the last part to determine the item type
+        if item_type.__contains__("/"):
+            item_type = item_type.split("/")[-1]
+
+        # Go through all the entries and convert them to the appropriate type
+        if item_type == "topics":
+            for topic_entry in item_entries:
+                # Skip entries that are not in the support center
+                if not topic_entry.get("in_support_center"):
+                    continue
+
+                # Add the topic to the result list
+                topic = Topic()
+                topic.name = topic_entry.get("name", "")
+                topic.meta = topic_entry.get("_links", {})
+                converted_item_list.append(topic)
+
+        if item_type == "articles":
+            for article_entry in item_entries:
+                article = Article()
+                article.topic = self.topic
+                article.subject = article_entry.get("subject", "")
+                article.body = article_entry.get("body", "")
+                converted_item_list.append(article)
+
+        # Return the result. It will be an emtpy list if the item type is invalid.
+        return converted_item_list
