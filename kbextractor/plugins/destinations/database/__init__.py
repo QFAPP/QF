@@ -24,7 +24,7 @@ class DatabasePlugin(IDestinationPlugin):
 
         # Go through all the articles in this topic
         for article_entry in article_entry_list:
-            article_name = article_entry.get("subject", "")
+            article_name = article_entry.subject
 
             # If there is no subject, it means the article is corrupted
             # therefore we skip it
@@ -36,6 +36,6 @@ class DatabasePlugin(IDestinationPlugin):
             try:
                 article = Article.create(topic=topic,
                                          subject=article_name,
-                                         body=article_entry.get("body", ""))
+                                         body=article_entry.body)
             except Article.DoesNotExist:
                 pass
