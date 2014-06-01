@@ -5,8 +5,10 @@ class ISourcePlugin(IPlugin):
     """
     Represents the interface for the source plugins.
     """
+    def __init__(self):
+        self.options_dict = {}
 
-    def authenticate(self, subdomain, username, password):
+    def authenticate(self):
         pass
 
     def retrieve_topics(self, page):
@@ -17,6 +19,14 @@ class ISourcePlugin(IPlugin):
 
     def next_page(self, metadata):
         pass
+
+    def parse_options(self, options_str):
+        """
+        Parses the options provided to the plugin.
+        """
+        option_list = options_str.split(',')
+        option_list_list = [value.split('=', 1) for value in option_list if '=' in value]
+        self.options_dict = dict(option_list_list)
 
 
 class IDestinationPlugin(IPlugin):

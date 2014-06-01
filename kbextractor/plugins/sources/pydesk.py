@@ -16,13 +16,13 @@ class PyDesk(ISourcePlugin):
         self.base_url = ""
         self.topic = ""
 
-    def authenticate(self, subdomain, username, password):
+    def authenticate(self):
         """
         Prepares the data that wil be used to authenticate.
         """
-        self.subdomain = subdomain
-        self.user = username
-        self.password = password
+        self.subdomain = self.options_dict["subdomain"]
+        self.user = self.options_dict["username"]
+        self.password = self.options_dict["password"]
         self.base_url = "https://" + self.subdomain + ".desk.com"
 
     def next_page(self, metadata):
