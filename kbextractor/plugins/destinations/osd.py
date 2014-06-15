@@ -16,6 +16,7 @@ class OnDiskPlugin(IDestinationPlugin):
     """
 
     def __init__(self):
+        super().__init__()
         self.current_topic = ""
 
     def store(self, topic_name, article_entry_list):
@@ -29,7 +30,7 @@ class OnDiskPlugin(IDestinationPlugin):
         # Display the topic if necessary
         if self.current_topic != topic_name:
             self.current_topic = topic_name
-            print ("[{0}]".format(self.current_topic))
+            print("[{0}]".format(self.current_topic))
 
         # Display the subject of the articles
         [print("   {0}".format(article_entry.subject)) for article_entry in article_entry_list]

@@ -34,8 +34,8 @@ class DatabasePlugin(IDestinationPlugin):
             # Create the files with the content
             # Overwrite existing files
             try:
-                article = Article.create(topic=topic,
-                                         subject=article_name,
-                                         body=article_entry.body)
+                Article.create(topic=topic,
+                               subject=article_name,
+                               body=article_entry.body)
             except Article.DoesNotExist:
                 pass

@@ -10,6 +10,7 @@ class PyDesk(ISourcePlugin):
     """
 
     def __init__(self):
+        super().__init__()
         self.subdomain = ""
         self.user = ""
         self.password = ""
