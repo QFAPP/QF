@@ -16,14 +16,6 @@ if __name__ == "__main__":
     parser.add_argument("-dopt", "--destination-options", dest="destination_options", action="store",
                         nargs="?", const="", default="",
                         help="The options for the destination plugin")
-    """
-    parser.add_argument("--subdomain", dest="subdomain", action="store",
-                        help="Your subdomain")
-    parser.add_argument("--username", dest="username", action="store",
-                        help="Your username")
-    parser.add_argument("--password", dest="password", action="store",
-                        help="Your password")
-    """
     parser.add_argument("--list", action="store_true",
                         help="list available plugins")
 
