@@ -1,5 +1,6 @@
 from models import Article, Topic
 
+
 def populate():
     """
     Creates the tables required by the knowledge base extractor.

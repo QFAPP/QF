@@ -16,7 +16,7 @@ class TestPyDesk(unittest.TestCase):
     def test_next_page(self):
         pydesk = PyDesk()
         next_page_url = pydesk.next_page(self.user_next["_links"])
-        self.assertIsNotNone (next_page_url)
+        self.assertIsNotNone(next_page_url)
 
 if __name__ == '__main__':
     unittest.main()

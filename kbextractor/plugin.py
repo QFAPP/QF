@@ -5,7 +5,9 @@ class ISourcePlugin(IPlugin):
     """
     Represents the interface for the source plugins.
     """
+
     def __init__(self):
+        super().__init__()
         self.options_dict = {}
 
     def authenticate(self):
@@ -17,7 +19,7 @@ class ISourcePlugin(IPlugin):
     def retrieve_topics(self, page):
         pass
 
-    def retrieve_articles(self, topic_name, page):
+    def retrieve_articles(self, topic_name):
         pass
 
     def next_page(self, metadata):
@@ -27,8 +29,7 @@ class ISourcePlugin(IPlugin):
         """
         Parses the options provided to the plugin.
         """
-        plugin_common = PluginCommon()
-        self.options_dict = plugin_common.parse_options(options_str)
+        self.options_dict = PluginCommon.parse_options(options_str)
 
 
 class IDestinationPlugin(IPlugin):
@@ -47,8 +48,7 @@ class IDestinationPlugin(IPlugin):
         """
         Parses the options provided to the plugin.
         """
-        plugin_common = PluginCommon()
-        self.options_dict = plugin_common.parse_options(options_str)
+        self.options_dict = PluginCommon.parse_options(options_str)
 
 
 class PluginCommon:
@@ -57,7 +57,8 @@ class PluginCommon:
     destination plugins.
     """
 
-    def parse_options(self, options_str):
+    @staticmethod
+    def parse_options(options_str):
         """
         Parses the options provided to the plugin.
         """
