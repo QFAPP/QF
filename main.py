@@ -34,12 +34,18 @@ if __name__ == "__main__":
         exit()
 
     # Set the source plugin
-    sourcePluginInfo = kbManager.manager.getPluginByName("PyDesk", "Source")
+    sourcePluginInfo = kbManager.manager.getPluginByName(args.source, "Source")
+    if not sourcePluginInfo:
+        print("Cannot find the specified source plugin: {0}".format(args.source))
+        exit()
     sourcePlugin = sourcePluginInfo.plugin_object
     sourcePlugin.parse_options(args.source_options)
 
     # Set the destination plugin
-    destinationPluginInfo = kbManager.manager.getPluginByName("OSD", "Destination")
+    destinationPluginInfo = kbManager.manager.getPluginByName(args.destination, "Destination")
+    if not destinationPluginInfo:
+        print("Cannot find the specified destination plugin: {0}".format(args.destination))
+        exit()
     destinationPlugin = destinationPluginInfo.plugin_object
     destinationPlugin.options_dict = {}
 
