@@ -1,15 +1,14 @@
 from kbextractor.plugin import IDestinationPlugin
-from .models import Article, Topic
+
+from models import Article
+from models import Topic
 
 
 class DatabasePlugin(IDestinationPlugin):
-    """
-    Plugin storing the articles in a database.
-    """
+    """Plugin storing the articles in a database."""
 
     def store(self, topic_name, article_entry_list):
-        """
-        Stores the article entries in the database.
+        """Stores the article entries in the database.
 
         :param topic_name The name of the topic
         :param article_entry_list The list of entries of this topic
@@ -34,8 +33,7 @@ class DatabasePlugin(IDestinationPlugin):
             # Create the files with the content
             # Overwrite existing files
             try:
-                Article.create(topic=topic,
-                               subject=article_name,
+                Article.create(topic=topic, subject=article_name,
                                body=article_entry.body)
             except Article.DoesNotExist:
                 pass

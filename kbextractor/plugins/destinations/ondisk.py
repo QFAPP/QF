@@ -4,17 +4,16 @@ from kbextractor.plugin import IDestinationPlugin
 
 
 class OnDiskPlugin(IDestinationPlugin):
-    """
-    This plugin will store the information on disk.
+    """This plugin will store the information on disk.
 
     A folder with the name of the topic will be created if necessary and the
     articles will be placed inside as plain text files.
     """
 
     def store(self, topic_name, article_entry_list):
-        """
-        Stores a list of articles into a folder having the name of the topic
-        containing them.
+        """Stores a list of articles into a folder.
+
+        The folder will have the name of the topic containing them.
 
         :param topic_name The name of the topic
         :param article_entry_list The list of entries of this topic
