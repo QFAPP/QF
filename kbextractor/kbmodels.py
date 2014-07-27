@@ -1,10 +1,10 @@
 class Topic(object):
-    """
-    Represents a topic.
+    """Represents a topic.
 
     The meta field is specific to the source and will contain the metadata
     allowing to retrieve the articles contained within a specific topic.
     """
+
     def __init__(self):
         self.name = ""
         self.subtopics = []
@@ -12,9 +12,8 @@ class Topic(object):
 
 
 class Article(object):
-    """
-    Represents an article.
-    """
+    """Represents an article."""
+
     def __init__(self):
         self.topic = ""
         self.subject = ""

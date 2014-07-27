@@ -2,8 +2,7 @@ from kbextractor.plugin import IDestinationPlugin
 
 
 class OnDiskPlugin(IDestinationPlugin):
-    """
-    This is the On Screen Display plugin.
+    """This is the On Screen Display plugin.
 
     It will display the topics and their articles as followed:
     [Topic 1]
@@ -20,8 +19,7 @@ class OnDiskPlugin(IDestinationPlugin):
         self.current_topic = ""
 
     def store(self, topic_name, article_entry_list):
-        """
-        Displays the content of the article_entry_list on the screen
+        """Displays the content of the article_entry_list on the screen
 
         :param topic_name The name of the topic
         :param article_entry_list The list of entries of this topic
@@ -33,4 +31,5 @@ class OnDiskPlugin(IDestinationPlugin):
             print("[{0}]".format(self.current_topic))
 
         # Display the subject of the articles
-        [print("   {0}".format(article_entry.subject)) for article_entry in article_entry_list]
+        [print("   {0}".format(article_entry.subject)) for article_entry in
+         article_entry_list]

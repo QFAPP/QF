@@ -1,13 +1,12 @@
 import requests
 
+from kbextractor.kbmodels import Article
+from kbextractor.kbmodels import Topic
 from kbextractor.plugin import ISourcePlugin
-from kbextractor.kbmodels import Article, Topic
 
 
 class PyDesk(ISourcePlugin):
-    """
-    Plugin retrieving the data from desk.com
-    """
+    """Plugin retrieving the data from desk.com."""
 
     def __init__(self):
         super().__init__()
@@ -18,17 +17,14 @@ class PyDesk(ISourcePlugin):
         self.topic = ""
 
     def authenticate(self):
-        """
-        Prepares the data that wil be used to authenticate.
-        """
+        """Prepares the data that wil be used to authenticate."""
         self.subdomain = self.options_dict["subdomain"]
         self.user = self.options_dict["username"]
         self.password = self.options_dict["password"]
         self.base_url = "https://" + self.subdomain + ".desk.com"
 
     def next_page(self, metadata):
-        """
-        Retrieves the URL of the next page from the meta data.
+        """Retrieves the URL of the next page from the meta data.
 
         :param metadata The meta data to parse to find the next page URL
         :return The URL of the next page if available
@@ -46,9 +42,7 @@ class PyDesk(ISourcePlugin):
         return next_page.get("href")
 
     def retrieve_topics(self, topic_page):
-        """
-        Retrieves the topics.
-        """
+        """Retrieves the topics."""
         if not topic_page:
             item_to_retrieve = "topics"
         else:
@@ -56,8 +50,7 @@ class PyDesk(ISourcePlugin):
         return self.retrieve_items(item_to_retrieve)
 
     def retrieve_articles(self, topic_entry):
-        """
-        Saves a topic entry and its content on disk.
+        """Saves a topic entry and its content on disk.
 
         :param topic_entry: the topic entry to save on disk
         """
@@ -86,12 +79,13 @@ class PyDesk(ISourcePlugin):
         return self.retrieve_items(href)
 
     def retrieve_items(self, item):
-        """
-        Queries the API to retrieve the items.
+        """Queries the API to retrieve the items.
 
-        :param item The name of an item type or its URL (the part after the base
+        :param item The name of an item type or its URL (the part after the
+        base
          URL)
-        :return Returns a tuple whose first member is the list of entries of the
+        :return Returns a tuple whose first member is the list of entries of
+        the
          requested item type, and the second one is the metadata.
         """
         # Build a dictionary of pre-defined types
@@ -107,8 +101,7 @@ class PyDesk(ISourcePlugin):
 
         # Check for HTTP codes other than 200.
         if response.status_code != 200:
-            print('Status:',
-                  response.status_code,
+            print('Status:', response.status_code,
                   'Problem with the request. Exiting.')
             raise Exception
 
@@ -122,8 +115,7 @@ class PyDesk(ISourcePlugin):
         return converted_item_entries, items_data.get("_links", {})
 
     def convert_to_kbmodel(self, item_type, item_entries):
-        """
-        Converts the Desk.com items to KbExtractor items.
+        """Converts the Desk.com items to KbExtractor items.
 
         :param item_type: The type of the item to convert.
         :param item_entries: All the entries to convert.
@@ -139,7 +131,8 @@ class PyDesk(ISourcePlugin):
         if not item_type:
             return converted_item_list
 
-        # If the item type contains a "/" (i.e.: /api/v2/topics/633385/articles)
+        # If the item type contains a "/" (i.e.:
+        # /api/v2/topics/633385/articles)
         # it means we have to retrieve the last part to determine the item type
         if item_type.__contains__("/"):
             item_type = item_type.split("/")[-1]
@@ -165,5 +158,6 @@ class PyDesk(ISourcePlugin):
                 article.body = article_entry.get("body", "")
                 converted_item_list.append(article)
 
-        # Return the result. It will be an emtpy list if the item type is invalid.
+        # Return the result. It will be an emtpy list if the item type is
+        # invalid.
         return converted_item_list
