@@ -1,7 +1,7 @@
 from kbextractor.plugin import IDestinationPlugin
 
 
-class OnDiskPlugin(IDestinationPlugin):
+class OSDPlugin(IDestinationPlugin):
     """This is the On Screen Display plugin.
 
     It will display the topics and their articles as followed:
@@ -29,6 +29,10 @@ class OnDiskPlugin(IDestinationPlugin):
         if self.current_topic != topic_name:
             self.current_topic = topic_name
             print("[{0}]".format(self.current_topic))
+
+        # Leave if there are no articles
+        if not article_entry_list:
+            return
 
         # Display the subject of the articles
         [print("   {0}".format(article_entry.subject)) for article_entry in
