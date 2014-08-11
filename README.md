@@ -9,7 +9,7 @@ development phase. Other versions might as well work.
 
 * Peewee (2.2.2)
 * PyMySQL3 (0.5)
-* Yaspy (1.10.223)
+* Yapsy (1.10.423)
 
 # Plugins instructions
 

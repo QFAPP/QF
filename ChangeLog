@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Adding packaging capabilities
 * Adding unit test for the OSD plugin
 * Making the project Flake8 compliant
 * Applying lint refactoring

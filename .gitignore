@@ -2,3 +2,5 @@ settings.py
 __pycache__
 .idea
 graveyard
+.tox/
+kbextractor.egg-info/

@@ -1,3 +1,3 @@
 Peewee>=2.2.2
-PyMySQL3=>0.5
-Yaspy=>1.10.223
+PyMySQL3>=0.5
+Yapsy>=1.10.223
