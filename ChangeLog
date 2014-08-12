@@ -1,0 +1,33 @@
+CHANGES
+=======
+
+* Adding automated testing capabilities with tox
+* Adding packaging capabilities
+* Adding unit test for the OSD plugin
+* Making the project Flake8 compliant
+* Applying lint refactoring
+* Adding protions of code that were removed during a previous merge
+* Handling unknown plugins
+* Updating the README file
+* Cleaning up main.py
+* Adding a help function in the plugin interface
+* Adding the option parsing ability to the destination plugins
+* Reflecting the changes to the main file
+* Adjusting the source interface to support a set of options
+* Separating the extractor into a dedicated module
+* Implementing the KbModels in the Database plugin
+* Implementing the KbModels in the OnDisk plugin
+* Implementing the KbModels in the OSD plugin
+* Implementing the KbModels in the pydesk plugin
+* Implementing KbModels
+* Fixing the --list cli argument
+* Improving the function displaying the plugin information
+* Making --list a real optional argument
+* Fixing the database plugin
+* Updating the README file
+* Implementing plugins for various sources and destinations
+* Updating the .gitignore file
+* Updating the Readme file
+* Changing the directory structure to follow Python best practices
+* Initial import
+* Initial commit
