@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Adding automated testing capabilities with tox
 * Adding packaging capabilities
 * Adding unit test for the OSD plugin
 * Making the project Flake8 compliant
